@@ -1,5 +1,10 @@
-.header{
-    background-color: rgba(16, 28, 192, 0.795);
+@font-face {
+    font-family: 'FiveFontsastFreddy';
+    src: url("./../fonts/FiveFontsatFreddy\'s-Regular.ttf");
+}
+
+.header {
+    background-color: rgb(11, 65, 148);
     color: white;
     position: sticky;
     top: 0px;
@@ -8,29 +13,50 @@
     justify-content: center;
     align-items: center;
     z-index: 10;
+    padding-top: 15px;
 }
-.header__title{
+
+.header__title {
     padding: 0px;
     margin: 0px;
+    font-family: FiveFontsastFreddy;
 }
-.launches__list{
+
+.header__icon {
+    font-size: 2rem;
+    margin-left: 10px;
+    padding-bottom: 13px;
+}
+
+.launches__list {
     display: grid;
-    grid-template-columns: repeat(3,1fr);
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     grid-gap: 10px;
     list-style: none;
     margin: 0px;
     padding: 0px;
+    font-family: FiveFontsastFreddy;
+    font-size: 0.8rem;
 }
-.list{
+
+.list {
     transition: all 0.5s;
 }
-.list:hover{
+
+.list:hover {
     transform: scale(1.1);
 }
-.list__img{
-    height: 70%;
+
+.launches {
+    padding-top: 20px;
 }
-.list__link{
+
+.list__img {
+    height: 70%;
+    margin-bottom: 10px;
+}
+
+.list__link {
     text-decoration: none;
     color: black;
     height: 100%;
@@ -41,9 +67,59 @@
     justify-content: left;
     color: white;
 }
+
 .list__link p {
-    margin: 10px;
+    margin: 0px;
 }
-.list__link:hover{
+
+.list__link:hover {
     text-decoration: underline;
+}
+
+/* ventana de info */
+
+.windowDetails {
+    background-color: rgba(27, 27, 27, 0.959);
+    position: fixed;
+    width: 95%;
+    height: 88vh;
+    top: 85px;
+    left: 40px;
+    display: none;
+}
+
+.abrir{
+    animation-name: abrir;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+}
+
+.cerrar{
+    animation-name: cerrar;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes abrir {
+    from{
+        opacity: 0%;
+        transform: scaleX(0%);
+    }
+
+    to{
+        opacity: 100%;
+        transform: scaleX(95%);
+    }
+}
+
+@keyframes cerrar {
+    from{
+        opacity: 100%;
+        transform: scaleX(95%);
+    }
+    
+    to{
+        opacity: 0%;
+        transform: scaleX(0%);
+    }
 }

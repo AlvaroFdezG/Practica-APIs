@@ -1,5 +1,7 @@
 const launches__list = document.getElementById("launches__list");
-
+const launches = document.getElementById("launches");
+const WindowDetails = document.getElementById("windowDetails");
+const closeButton = document.getElementById("closeButton");
 
 const getData = async () => {
     const res = await fetch("https://api.spacexdata.com/v5/launches");
@@ -9,7 +11,7 @@ const getData = async () => {
     createGrid(resJson);
 }
 
-const getRocket = async () => {
+const getDetails = async () => {
     const res = await fetch("https://api.spacexdata.com/v4/rockets/5e9d0d95eda69973a809d1ec");
     const resJson = await res.json();
 
@@ -33,7 +35,7 @@ const createGrid = (data) => {
             name.textContent = launch.name;
 
             const date = document.createElement("p");
-            date.textContent = launch.date_local;
+            date.textContent = launch.date_local.slice(0, launch.date_local.lastIndexOf("T"));
 
             const link = document.createElement("a");
             link.className = "list__link";
@@ -54,4 +56,18 @@ const createGrid = (data) => {
     launches__list.appendChild(fragment);
 }
 
+const openWindow = () => {
+    windowDetails.classList.remove("cerrar");
+    windowDetails.style.display = "block";
+    windowDetails.classList.add("abrir");
+}
+
+const closeWindow = () => {
+    windowDetails.classList.remove("abrir");
+    windowDetails.classList.add("cerrar");
+}
+
 getData();
+
+launches.addEventListener("click", openWindow);
+closeButton.addEventListener("click", closeWindow);
