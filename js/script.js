@@ -168,7 +168,8 @@ const closeWindow = () => {
     windowDetails.classList.add("cerrar");
 }
 
-getData();
+// getData();
 
 launches.addEventListener("click", openWindow);
 closeButton.addEventListener("click", closeWindow);
+document.addEventListener("DOMContentLoaded",getData);
