@@ -2,24 +2,53 @@ const launches__list = document.getElementById("launches__list");
 const launches = document.getElementById("launches");
 const WindowDetails = document.getElementById("windowDetails");
 const closeButton = document.getElementById("closeButton");
+const gallery = document.getElementById("gallery");
+
+
+const number = document.getElementById("number");
+const description = document.getElementById("description");
+const name = document.getElementById("name");
 
 const getData = async () => {
     const res = await fetch("https://api.spacexdata.com/v5/launches");
     const resJson = await res.json();
-    console.log(resJson);
+    // console.log(resJson);
     resJson.reverse();
     createGrid(resJson);
 }
 
-const getDetails = async () => {
-    const res = await fetch("https://api.spacexdata.com/v4/rockets/5e9d0d95eda69973a809d1ec");
+const getDetails = async (launch) => {
+    const res = await fetch("https://api.spacexdata.com/v5/launches/" + launch);
     const resJson = await res.json();
 
-    const img = document.createElement("img");
+    name.textContent = resJson.name;
+    // console.log(resJson.details);
+    if (resJson.details == null) {
+        description.textContent = "Sin detalles";
+    } else {
+        const translatedDetails = await translate(resJson.details);
+        // console.log(translatedDetails);
+        description.textContent = translatedDetails;
+    }
+    gallery.innerHTML = "";
+    number.textContent = resJson.flight_number;
+    resJson.links.flickr.original.forEach(img => {
+        const imgGallery = document.createElement("img");
+        imgGallery.src = img;
+        imgGallery.className = "imgGallery";
 
-    console.log(resJson.flickr_images[0]);
-    img.src = resJson.flickr_images[0];
+        const linkGallery = document.createElement("a");
+        linkGallery.href = img;
+        linkGallery.appendChild(imgGallery);
+        linkGallery.target = "blank";
+
+        gallery.appendChild(linkGallery);
+    });
     // img.referrerPolicy = "no-referrer";
+}
+
+const translate = async (text) => {
+
 }
 
 const createGrid = (data) => {
@@ -37,16 +66,20 @@ const createGrid = (data) => {
             const date = document.createElement("p");
             date.textContent = launch.date_local.slice(0, launch.date_local.lastIndexOf("T"));
 
+            const id = document.createElement("P");
+            id.textContent = launch.id;
+            id.style.display = "none";
+
             const link = document.createElement("a");
             link.className = "list__link";
-            link.href = "#";
 
             const img = document.createElement("img");
             img.src = launch.links.patch.small;
             img.className = "list__img";
 
-            link.appendChild(img);
+            link.appendChild(id);
             link.appendChild(name);
+            link.appendChild(img);
             link.appendChild(date);
             li.appendChild(link);
 
@@ -56,10 +89,20 @@ const createGrid = (data) => {
     launches__list.appendChild(fragment);
 }
 
-const openWindow = () => {
-    windowDetails.classList.remove("cerrar");
-    windowDetails.style.display = "block";
-    windowDetails.classList.add("abrir");
+const openWindow = (event) => {
+    event.preventDefault();
+    // console.log(event.target.tagName);
+    if (event.target.tagName === "A") {
+        windowDetails.classList.remove("cerrar");
+        windowDetails.style.display = "block";
+        windowDetails.classList.add("abrir");
+        getDetails(event.target.children[0].textContent);
+    } else if (event.target.parentElement.children[0].tagName === "P") {
+        windowDetails.classList.remove("cerrar");
+        windowDetails.style.display = "block";
+        windowDetails.classList.add("abrir");
+        getDetails(event.target.parentElement.children[0].textContent);
+    }
 }
 
 const closeWindow = () => {
