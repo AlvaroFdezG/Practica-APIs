@@ -1,5 +1,7 @@
 :root {
     --primary-color: rgb(60, 11, 175);
+    --secondary-color: rgb(168, 168, 168);
+    --background: rgba(27, 27, 27, 0.959);
 }
 
 @font-face {
@@ -59,7 +61,7 @@
 }
 
 .list__img {
-    max-width: 200px;
+    max-width: 150px;
     margin-bottom: 10px;
 }
 
@@ -71,7 +73,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: left;
+    justify-content: space-between;
     color: white;
 }
 
@@ -97,7 +99,7 @@
 }
 
 .windowDetails {
-    background-color: rgba(27, 27, 27, 0.959);
+    background-color: var(--background);
     position: fixed;
     width: 95%;
     height: 88vh;
@@ -115,6 +117,7 @@
     list-style: none;
     padding: 0px;
     margin: 0px;
+    width: 32%;
 }
 
 .gallery {
@@ -122,6 +125,7 @@
     flex-wrap: wrap;
     align-items: top;
     gap: 20px;
+    width: 100%;
 }
 
 .imgGallery {
@@ -142,6 +146,57 @@
     animation-fill-mode: forwards;
 }
 
+.windowdetails__wiki {
+    color: white;
+}
+
+.windowDetails__data {
+    color: var(--secondary-color);
+}
+
+.windowDetails__content {
+    font-size: 1.1rem;
+}
+.windowDetails__name{
+    font-size: 1.3rem;
+    margin: 0px;
+}
+.windowDetails__div{
+    display: flex;
+    align-items: top;
+    justify-content: space-between;
+}
+.windowdetails__asteroids{
+    width: 32%;
+}
+.windowdetails__gallery{
+    width: 32%;
+}
+.windowDetails__asteroidList{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+    gap: 10px;
+}
+.windowDetails__asteroid-data{
+    color: var(--secondary-color);
+    margin: 0px;
+    font-size: 0.8rem;
+}
+.windowDetails__asteroid-info{
+    font-size: 0.8rem;
+    margin-bottom: 0px;
+    margin-top: 0px;
+}
+.windowDetails__asteroid-li{
+    font-size: 1rem;
+    border: 1px solid var(--primary-color);
+    border-radius: 10px;
+    padding: 10px;
+}
 @keyframes abrir {
     from {
         opacity: 0%;

@@ -22,36 +22,49 @@
     <main>
         <div class="container">
             <section class="launches" id="launches">
-                <ul class="launches__list" id="launches__list">
-
-                </ul>
+                <ul class="launches__list" id="launches__list"></ul>
             </section>
         </div>
     </main>
     <section class="windowDetails" id="windowDetails">
         <button class="windowDetails__closeButton" id="closeButton">X</button>
+        <div class="windowDetails__div">
             <ul class="windowDetails__list">
                 <li>
-                    <p>Nombre de misión:</p>
-                    <p id="name"></p>
+                    <p class="windowDetails__data">Nombre de misión:</p>
+                    <p class="windowDetails__name" id="name"></p>
                 </li>
                 <li>
-                    <p>Detalles:</p>
+                    <p class="windowDetails__data">Detalles:</p>
                     <p id="description"></p>
                 </li>
                 <li>
-                    <p>Nº de vuelo:</p>
-                    <p id="number"></p>
+                    <p class="windowDetails__data">Nº de vuelo:</p>
+                    <p class="windowDetails__content" id="number"></p>
                 </li>
                 <li>
-                    <p>Nombre de cohete:</p>
-                    <p id="rocketName"></p>
+                    <p class="windowDetails__data">Fecha de misión:</p>
+                    <p id="dateInfo" class="windowdetails__content"></p>
+                </li>
+                <li>
+                    <p class="windowDetails__data">Información en Wikipedia:</p>
+                    <a target="_blank" id="wiki" class="windowdetails__wiki"></a>
                 </li>
             </ul>
-        <p><strong>Galería de Imágenes:</strong></p>
-        <section class="gallery" id="gallery">
-
-        </section>
+            <section class="windowdetails__asteroids">
+                <h4 class="windowDetails__content">Información de asteroides cercanos para esta fecha:</h4>
+                <p class="windowDetails__data">Número de asteroides cercanos: </p>
+                <p id="numberAsteroids"></p>
+                <p class="windowDetails__data">Información de asteroides:</p>
+                <ul id="asteroidList" class="windowDetails__asteroidList">
+                </ul>
+            </section>
+            <div class="windowdetails__gallery">
+                <p><strong>Galería de Imágenes:</strong></p>
+                <section class="gallery" id="gallery">
+                </section>
+            </div>
+        </div>
     </section>
     <script src="./js/script.js"></script>
 </body>

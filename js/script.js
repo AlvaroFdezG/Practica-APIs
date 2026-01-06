@@ -3,7 +3,10 @@ const launches = document.getElementById("launches");
 const WindowDetails = document.getElementById("windowDetails");
 const closeButton = document.getElementById("closeButton");
 const gallery = document.getElementById("gallery");
-
+const wiki = document.getElementById("wiki");
+const dateInfo = document.getElementById("dateInfo");
+const numberAsteroids = document.getElementById("numberAsteroids");
+const asteroidList = document.getElementById("asteroidList");
 
 const number = document.getElementById("number");
 const description = document.getElementById("description");
@@ -17,6 +20,8 @@ const getData = async () => {
     createGrid(resJson);
 }
 
+// Aqui llamo a la api de spaceX que no tiene key, la fecha la utilizaré para llamar a la otra API
+
 const getDetails = async (launch) => {
     const res = await fetch("https://api.spacexdata.com/v5/launches/" + launch);
     const resJson = await res.json();
@@ -26,12 +31,15 @@ const getDetails = async (launch) => {
     if (resJson.details == null) {
         description.textContent = "Sin detalles";
     } else {
-        const translatedDetails = await translate(resJson.details);
-        // console.log(translatedDetails);
-        description.textContent = translatedDetails;
+        description.textContent = resJson.details;
     }
     gallery.innerHTML = "";
     number.textContent = resJson.flight_number;
+    wiki.href = resJson.links.wikipedia;
+    wiki.textContent = resJson.links.wikipedia;
+    dateInfo.textContent = resJson.date_local.slice(0, resJson.date_local.lastIndexOf("T"));
+    getNasa(resJson.date_local.slice(0, resJson.date_local.lastIndexOf("T")));
+
     resJson.links.flickr.original.forEach(img => {
         const imgGallery = document.createElement("img");
         imgGallery.src = img;
@@ -47,8 +55,57 @@ const getDetails = async (launch) => {
     // img.referrerPolicy = "no-referrer";
 }
 
-const translate = async (text) => {
 
+// Aqui llamo a la api de la NASA que sí tiene key utilizando la fecha de la misión seleccionada para obtener los cuerpos cercanos a la Tierra de esa fecha
+
+const getNasa = async (date) => {
+    const res = await fetch("https://api.nasa.gov/neo/rest/v1/feed?start_date=" + date + "&end_date=" + date + "&api_key=Sae62qI7Dvy6SVdDZf1uRP1ywWMJbncNRcWRAcwr");
+    const resJson = await res.json();
+    // console.log(resJson);
+    // console.log(resJson.near_earth_objects[date]);
+    numberAsteroids.textContent = resJson.element_count;
+
+    const fragmento = new DocumentFragment();
+    resJson.near_earth_objects[date].forEach(asteroid => {
+        const li = document.createElement("li");
+        li.textContent = asteroid.name;
+        li.className = "windowDetails__asteroid-li";
+
+        const dateHourP = document.createElement("p");
+        dateHourP.textContent = "Fecha y hora aproximada:";
+        dateHourP.className = "windowDetails__asteroid-data";
+        li.appendChild(dateHourP);
+        const dateHour = document.createElement("p");
+        dateHour.textContent = asteroid.close_approach_data[0].close_approach_date_full;
+        dateHour.className = "windowDetails__asteroid-info";
+        li.appendChild(dateHour);
+
+        const sizeP = document.createElement("p");
+        sizeP.textContent = "Diámetro:";
+        li.appendChild(sizeP);
+        sizeP.className = "windowDetails__asteroid-data";
+        const size = document.createElement("p");
+        size.textContent = asteroid.estimated_diameter.meters.estimated_diameter_max;
+        size.className = "windowDetails__asteroid-info";
+        li.appendChild(size);
+
+        const dangerP = document.createElement("p");
+        dangerP.textContent = "Potencialmente peligroso:";
+        dangerP.className = "windowDetails__asteroid-data";
+        li.appendChild(dangerP);
+        const danger = document.createElement("p");
+
+        if (asteroid.is_potentially_hazardous_asteroid == false) {
+            danger.textContent = "No";
+        } else {
+            danger.textContent = "Sí";
+        }
+        danger.className = "windowDetails__asteroid-info";
+        li.appendChild(danger);
+
+        fragmento.appendChild(li);
+    });
+    asteroidList.appendChild(fragmento);
 }
 
 const createGrid = (data) => {
