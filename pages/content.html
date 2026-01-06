@@ -1,12 +1,75 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contenido | Práctica APIs</title>
+    <title>Inicio | Práctica APIs</title>
+    <link rel="stylesheet" href="./../css/content.css">
+    <link rel="stylesheet" href="./../css/all.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
+
 <body>
-    <div class="container"></div>
+    <header class="header">
+        <h1 class="header__title">Cobetes</h1> <i class="fa-brands fa-space-awesome header__icon"></i>
+        <nav>
+            <a href="#"></a>
+            <a href="#"></a>
+            <a href="#"></a>
+        </nav>
+    </header>
+    <main>
+        <div class="container">
+            <section class="launches" id="launches">
+                <ul class="launches__list" id="launches__list"></ul>
+            </section>
+        </div>
+    </main>
+    <section class="windowDetails" id="windowDetails">
+        <div class="windowDetails__button-container">
+
+            <button class="windowDetails__closeButton" id="closeButton">X</button>
+        </div>
+        <div class="windowDetails__div">
+            <ul class="windowDetails__list">
+                <li>
+                    <p class="windowDetails__data">Nombre de misión:</p>
+                    <p class="windowDetails__name" id="name"></p>
+                </li>
+                <li>
+                    <p class="windowDetails__data">Detalles:</p>
+                    <p id="description"></p>
+                </li>
+                <li>
+                    <p class="windowDetails__data">Nº de vuelo:</p>
+                    <p class="windowDetails__content" id="number"></p>
+                </li>
+                <li>
+                    <p class="windowDetails__data">Fecha de misión:</p>
+                    <p id="dateInfo" class="windowdetails__content"></p>
+                </li>
+                <li>
+                    <p class="windowDetails__data">Información en Wikipedia:</p>
+                    <a target="_blank" id="wiki" class="windowdetails__wiki"></a>
+                </li>
+            </ul>
+            <section class="windowdetails__asteroids">
+                <h4 class="windowDetails__content">Asteroides cercanos para esta fecha:</h4>
+                <p class="windowDetails__data">Número de asteroides cercanos: </p>
+                <p id="numberAsteroids"></p>
+                <p class="windowDetails__data">Información de asteroides:</p>
+                <ul id="asteroidList" class="windowDetails__asteroidList">
+                </ul>
+            </section>
+            <div class="windowdetails__gallery">
+                <p><strong>Galería de Imágenes:</strong></p>
+                <section class="gallery" id="gallery">
+                </section>
+            </div>
+        </div>
+    </section>
     <script src="./../js/script.js"></script>
 </body>
+
 </html>

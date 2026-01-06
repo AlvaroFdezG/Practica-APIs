@@ -2,6 +2,7 @@
     --primary-color: rgb(60, 11, 175);
     --secondary-color: rgb(168, 168, 168);
     --background: rgba(27, 27, 27, 0.959);
+    --background-transparent: rgba(27, 27, 27, 0.966);
 }
 
 @font-face {
@@ -44,7 +45,9 @@
     font-family: FiveFontsastFreddy;
     font-size: 0.8rem;
 }
-
+.launches__date{
+    color: var(--secondary-color);
+}
 .list {
     transition: all 0.5s;
     border: 1px solid var(--primary-color);
@@ -99,7 +102,7 @@
 }
 
 .windowDetails {
-    background-color: var(--background);
+    background-color: var(--background-transparent);
     position: fixed;
     width: 95%;
     height: 88vh;
@@ -180,6 +183,11 @@
     margin: 0px;
     padding: 0px;
     gap: 10px;
+}
+.windowDetails__button-container{
+    width: 100%;
+    display: flex;
+    justify-content: right;
 }
 .windowDetails__asteroid-data{
     color: var(--secondary-color);

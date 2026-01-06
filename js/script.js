@@ -56,7 +56,7 @@ const getDetails = async (launch) => {
 }
 
 
-// Aqui llamo a la api de la NASA que sí tiene key utilizando la fecha de la misión seleccionada para obtener los cuerpos cercanos a la Tierra de esa fecha
+// Aqui llamo a la api de la NASA que sí tiene key utilizando la fecha de la misión seleccionada para obtener los asteroides cercanos a la Tierra de esa fecha
 
 const getNasa = async (date) => {
     const res = await fetch("https://api.nasa.gov/neo/rest/v1/feed?start_date=" + date + "&end_date=" + date + "&api_key=Sae62qI7Dvy6SVdDZf1uRP1ywWMJbncNRcWRAcwr");
@@ -64,7 +64,7 @@ const getNasa = async (date) => {
     // console.log(resJson);
     // console.log(resJson.near_earth_objects[date]);
     numberAsteroids.textContent = resJson.element_count;
-
+    asteroidList.innerHTML = "";
     const fragmento = new DocumentFragment();
     resJson.near_earth_objects[date].forEach(asteroid => {
         const li = document.createElement("li");
@@ -72,7 +72,7 @@ const getNasa = async (date) => {
         li.className = "windowDetails__asteroid-li";
 
         const dateHourP = document.createElement("p");
-        dateHourP.textContent = "Fecha y hora aproximada:";
+        dateHourP.textContent = "Fecha y hora de avistamiento:";
         dateHourP.className = "windowDetails__asteroid-data";
         li.appendChild(dateHourP);
         const dateHour = document.createElement("p");
@@ -122,6 +122,7 @@ const createGrid = (data) => {
 
             const date = document.createElement("p");
             date.textContent = launch.date_local.slice(0, launch.date_local.lastIndexOf("T"));
+            date.className = "launches__date";
 
             const id = document.createElement("P");
             id.textContent = launch.id;
